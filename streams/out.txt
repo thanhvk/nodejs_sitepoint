@@ -1,0 +1,2 @@
+As we did for the client, we start with importing Node.js modules. Then, we create a new writable stream that saves the data into a text file.
+	

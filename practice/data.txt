@@ -1,0 +1,2 @@
+This code works perfectly. Nothing is wrong with it, except for the fact that Node.js
+buffers the entire contents of data.txt before sending the data back to the client. With the increase of clients requests your application could start to consume a lot of memory. In addition clients will need to wait for the entire file to be read by the server application, resulting in increased latency.

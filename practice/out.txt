@@ -1,0 +1,1 @@
+This article has introduced one of the most powerful tools of Node.js, the streams API. In the coming weeks, we will dive deeper into the world of streams, exploring all the different types built into Node.js, and third party streams too.

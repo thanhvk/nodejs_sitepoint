@@ -8,9 +8,13 @@ var bodyParser = require('body-parser');
 
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GithubStrategy = require('passport-github').Strategy;
 
 var FACEBOOK_APP_ID = '1699099203684678';
 var FACEBOOK_APP_SECRET = '9ec6a9f3713c343358ef2b96446cd074';
+
+var GITHUB_APP_ID = 'cb6687e9a9fbf1afe1e4';
+var GITHUB_APP_SECRET = 'ce46fb7f3da9228d8535ead3d4d63c00442b3674';
 
 var app = express();
 var port = 3000;
@@ -37,6 +41,17 @@ passport.use(new FacebookStrategy({
   });
 }));
 
+passport.use(new GithubStrategy({
+  clientID: GITHUB_APP_ID,
+  clientSecret: GITHUB_APP_SECRET,
+  callbackURL: 'http://localhost:3000/auth/github/callback'
+}, function(accessToken, refreshToken, profile, done) {
+  process.nextTick(function() {
+    //Assuming user exists
+    done(null, profile);
+  });
+}));
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -48,6 +63,13 @@ passport.deserializeUser(function(obj, done) {
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/success',
+  failureRedirect: '/error'
+}));
+
+app.get('/auth/github', passport.authenticate('github'));
+
+app.get('/auth/github/callback', passport.authenticate('github', {
   successRedirect: '/success',
   failureRedirect: '/error'
 }));

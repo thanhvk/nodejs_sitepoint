@@ -1,3 +1,4 @@
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -57,4 +58,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+var server = http.createServer(app);
+server.listen(3000);
+console.log('Server listen on port 3000');
